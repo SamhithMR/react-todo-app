@@ -6,6 +6,7 @@ const {gettodoscontroller} = require('../controller/gettodoscontroller')
 const {gettodocontroller} = require('../controller/gettodocontroller')
 const {createTaskTodoController} = require('../controller/createTaskTodoController')
 const {deleteTaskTodoController} = require('../controller/deleteTaskTodoController')
+const {editTodoController} = require('../controller/editTodoController')
 const router = express.Router()
 
 router.get("/",home)
@@ -15,5 +16,6 @@ router.delete("/deleteTodoController/:id",deleteTodoController)
 router.post("/createTodoController",createTodoController)
 router.patch("/createTaskTodoController/:id",createTaskTodoController)
 router.patch("/deleteTaskTodoController/:id",deleteTaskTodoController)
+router.patch("/editTodoController/:id",editTodoController)
 
 module.exports = router
