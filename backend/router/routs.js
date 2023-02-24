@@ -8,6 +8,8 @@ const {createTaskTodoController} = require('../controller/createTaskTodoControll
 const {deleteTaskTodoController} = require('../controller/deleteTaskTodoController')
 const {editTodoController} = require('../controller/editTodoController')
 const {editTaskTodoController} = require('../controller/editTaskTodoController')
+const {register} = require('../controller/register')
+const {login} = require('../controller/login')
 const router = express.Router()
 
 router.get("/",home)
@@ -21,5 +23,8 @@ router.patch("/editTodoController/:id",editTodoController)
 router.patch("/createTaskTodoController/:id",createTaskTodoController)
 router.patch("/deleteTaskTodoController/:id",deleteTaskTodoController)
 router.patch("/editTaskTodoController/:id",editTaskTodoController)
+
+router.post('/register',register)
+router.post('/login',login)
 
 module.exports = router
