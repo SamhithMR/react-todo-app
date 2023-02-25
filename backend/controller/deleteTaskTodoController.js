@@ -1,10 +1,10 @@
-const model = require('../model/todos')
+const { todomodel } = require('../model/todos')
 
 exports.deleteTaskTodoController = async (req, res) => {
 
     if(req.body.task !== ""){
         const data = { $pull: {task: req.body.task}};
-        const todo = await model.updateOne({ _id: req.params.id}, data)
+        const todo = await todomodel.updateOne({ _id: req.params.id}, data)
         res.status(201).json({todo})
     }
     else{

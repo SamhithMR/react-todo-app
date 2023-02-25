@@ -1,4 +1,4 @@
-const model = require('../model/todos')
+const {todomodel} = require('../model/todos')
 
 exports.createTaskTodoController = async(req,res) =>{
     const data = {
@@ -6,7 +6,7 @@ exports.createTaskTodoController = async(req,res) =>{
             task:req.body.task
         }
     }
-    try{const todo = await model.updateOne({_id:req.params.id},data)
+    try{const todo = await todomodel.updateOne({_id:req.params.id},data)
 
     res.status(201).json({todo})
 }

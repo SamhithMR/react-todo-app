@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.circle-plus-icon:hover {
+    color: #91ddc2;
+  }

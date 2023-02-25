@@ -1,7 +1,7 @@
-const model = require('../model/todos')
+const {todomodel} = require('../model/todos')
 
 exports.createTodoController = async(req,res) =>{
-    try{const todos = await model.create({
+    try{const todos = await todomodel.create({
         title: req.body.title,
         task:[]
     })

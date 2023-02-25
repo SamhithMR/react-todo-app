@@ -1,7 +1,7 @@
-const model = require('../model/todos')
+const {todomodel} = require('../model/todos')
 
 exports.gettodoscontroller = async(req,res) =>{
-    try{const todos = await model.find()
+    try{const todos = await todomodel.find()
     res.status(201).json({todos})
 }
     catch(err){
