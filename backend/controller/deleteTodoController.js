@@ -1,10 +1,35 @@
 const {todomodel} = require('../model/todos')
 
-exports.deleteTodoController = async(req,res) =>{
-    try{const todos = await todomodel.findByIdAndDelete(req.params.id)
-    res.status(201).json({"status":"deleted"})
-}
-    catch(err){
-        console.log(err.message);
+exports.deleteTodoController = async (req, res) => {
+    const id = req.params.id
+    const userId = req.user?.id
+
+    // validations
+    if(!id){
+        return res.status(400).json({
+            sucess: false,
+            message: "invalid id"
+        })
+    }
+    if (!userId) {
+        return res.status(401).json({
+            sucess: false,
+            message: "unauthorized"
+        })
+    }
+
+    // find the todo by its id and delet it
+    try {
+        await todomodel.findByIdAndDelete(id)
+        res.status(201).json({
+            sucess: true,
+            message: "a todo deleted"
+        })
+    } 
+    catch (err) {
+        res.status(400).json({
+            sucess: false,
+            message: err.message
+        })
     }
 }

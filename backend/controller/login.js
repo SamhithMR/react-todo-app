@@ -1,32 +1,54 @@
 const {usermodel} = require('../model/todos')
 const bcrypt = require('bcryptjs')
-const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
 
 exports.login = async(req,res) =>{
     try{
-        const resp = await usermodel.findOne({
-            email:req.body.email
-        })
+        const {email,password} = req.body
+        const {SECRTKEY} = process.env
+        const user = await usermodel.findOne({email})
 
-        if(resp && await bcrypt.compare(req.body.password, resp.password)){
-            const token = jwt.sign({id:resp._id},"todoapp",{expiresIn:'2h'})
+// validations
+        if(!email){
+            return res.status(400).json({
+                sucess:false,
+                message:"email is required"
+            })
+        }
+        if(!password){
+            return res.status(400).json({
+                sucess:false,
+                message:"password is required"
+            })
+        }
+
+        // check if the password is matching the old password uisng bcrypt compare method
+        if(user && await bcrypt.compare(password, user.password)){
+            const token = jwt.sign({id:user._id}, SECRTKEY ,{expiresIn:'2h'})
 
             const options = {
-                expiresIn: new Date((Date.now() + 3*24*60*60*1000)),
-                httpOnly:true
+                expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+                httpOnly: true
             }
+            
+            // store the userID as token in cookie
             res.status(201).cookie("token",token, options).json({
+                sucess:true,
                 token,
-                sucess:true
+                message:"cookie named token created"
             })
         }
         else{
-            res.status(401).json({"status":"not fine"})
+            res.status(401).json({
+                sucess:false,
+                message:"invalid password"
+            })
         }
-    }
 
-    catch(err){
-        res.status(401).json({"status":err})
+    }catch (err) {
+        res.status(400).json({
+            sucess: false,
+            message: err.message
+        })
     }
 }

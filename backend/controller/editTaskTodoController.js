@@ -1,16 +1,64 @@
-const {todomodel} = require('../model/todos')
+const { todomodel } = require('../model/todos')
 
-exports.editTaskTodoController = async(req,res) =>{
-    try {
-        const { index, text } = req.body; // get the todo id, index of the task, and the new value from the request body
-        const updatedTodo = await todomodel.findOneAndUpdate(
-            { _id: req.params.id}, // pass an object with the _id property
-            { $set: { [`task.${index}`]: text } }, // update query
-            { new: true } // options object to return the updated todo
-          );
-        res.status(201).json({ status: "updated", todo: updatedTodo });
+exports.editTaskTodoController = async (req, res) => {
+
+    let { index, text } = req.body;
+    const userId = req.user?.id
+    const id = req.params.id
+
+    index = String(index)
+
+    // validations
+    if (!text) {
+        return res.status(400).json({
+            sucess: false,
+            message: "text feild must not be empty"
+        })
     }
-    catch(err){
-        console.log(err.message);
+
+    if (!userId) {
+        return res.status(401).json({
+            sucess: false,
+            message: "unauthorized user"
+        })
+    }
+    if (!index) {
+        return res.status(401).json({
+            sucess: false,
+            message: "invalid index"
+        })
+    }
+
+    if(!id){
+        return res.status(400).json({
+            sucess: false,
+            message: "invalid todos id"
+        })
+    }
+
+    // find the todo by its id, by using the index of the element edit the task
+    try {
+       await todomodel.findOneAndUpdate(
+            {
+                _id: id
+            },
+            {
+                $set: {
+                    [`task.${index}`]: text
+                }
+            }, 
+            {
+                new: true
+            } 
+        );
+        res.status(201).json({
+            sucess: true,
+            message: "edited task"
+        })
+    }catch (err) {
+        res.status(400).json({
+            sucess: false,
+            message: err.message
+        })
     }
 }

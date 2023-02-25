@@ -1,7 +1,7 @@
 import axios from "axios"
 import {useEffect, useState, useRef} from "react"
 import '../index.css'
-import useTodos from "./store"
+import useTodos from "../app/store"
 import Tasks from './Tasks'
 
 function Todo({data, id, onTodoDeleted, onTodoEdited}){

@@ -1,7 +1,7 @@
 import axios from "axios"
 import {useEffect, useState} from "react"
 import '../index.css'
-import useTodos from "./store"
+import useTodos from "../app/store"
 
 function Tasks({id}){
 
