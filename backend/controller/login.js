@@ -35,7 +35,7 @@ exports.login = async(req,res) =>{
             res.status(201).cookie("token",token, options).json({
                 sucess:true,
                 token,
-                message:"cookie named token created"
+                message:"loggedin sucessfully"
             })
         }
         else{

@@ -6,13 +6,14 @@ import Form from "./Form"
 
 function Todos() {
   const [todoss, setTodos] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const todos = useTodos((state) => state.todos);
   const setTodo = useTodos((state) => state.setTodo);
 
   useEffect(() => {
     setTodos(todos);
   }, [todos]);
+  
 
   useEffect(() => {
     const searchValue = search.toLowerCase();
@@ -32,9 +33,17 @@ function Todos() {
   }
 
   async function handleonTodoEdited(todoId, title) {
-    const resp = await axios.patch(`/editTodoController/${todoId}`, { title });
+    await axios.patch(`/editTodoController/${todoId}`, { title });
     setTodo();
-    setTodos(todoss);
+// ---------------
+    const updatedTodos = todoss.map((todo) => {
+      if (todo._id === todoId) {
+        return { ...todo, title };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+    // setTodos(todoss);
   }
 
   return (

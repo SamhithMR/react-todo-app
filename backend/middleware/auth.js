@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
     if (!token) {
         return res.status(401).json({
            sucess: false,
-           message: "no token"
+           message: "unauthorized user"
         })
     }
 
