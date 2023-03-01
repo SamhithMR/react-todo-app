@@ -5,8 +5,9 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ['Open Sans', 'sans-serif'],
       heading: ['Roboto Mono', 'sans-serif'],
+      noto: ['Noto Serif', 'sans-serif'],
+      Poppins:['Poppins','sans-serif']
     },
   },
   variants: {},

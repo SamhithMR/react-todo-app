@@ -12,6 +12,7 @@ const {editTaskTodoController} = require('../controller/editTaskTodoController')
 const {register} = require('../controller/register')
 const {login} = require('../controller/login')
 const {logout} = require('../controller/logout')
+const {getUserEmail} = require('../controller/getUserEmail')
 const {validateCookie} = require('../controller/validateCookie')
 
 const router = express.Router()
@@ -34,6 +35,7 @@ router.patch("/editTaskTodoController/:id",auth,editTaskTodoController)
 router.post('/register',register)
 router.post('/login',login)
 router.post('/logout',auth,logout)
-router.get('/validateCookie',auth,validateCookie)
+router.get('/getUserEmail',auth,getUserEmail)
+router.get('/validateCookie',validateCookie)
 
 module.exports = router

@@ -8,12 +8,14 @@ function Form(){
     const setTodo = useTodos((state) => state.setTodo)
     
     async function createTodo(){
-      await axios.post("/createTodoController", {title});
+      if(title !== ""){
+        await axios.post("/createTodoController", {title});
+      }
         setTitle("")
     }
 
     return(
-        <div className="p-6 flex items-center justify-center">
+        <div className=" py-5 flex items-center justify-center">
 <form onSubmit={(e) => { e.preventDefault(); createTodo(); setTodo() }} className="relative">
   <div className="flex items-center">
     <input

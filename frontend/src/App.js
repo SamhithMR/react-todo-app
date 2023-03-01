@@ -13,20 +13,30 @@ function App() {
 
   useEffect(() => {
     const getSession = async () => {
-      const resp = await axios.get('/validateCookie')
-      setLogedin(resp.data.sucess)
-    };
+      try{
+        const resp = await axios.get('/validateCookie')
+        setLogedin(resp.data.sucess);
+        
+      }catch(err){
+        setLogedin(false)
+      }
+    }
     getSession();
-    setTodo(todos)
-  }, [logedin]);
+  }, []);
+
+  useEffect(()=>{
+    if(logedin){
+      setTodo(todos)
+    }
+  },[logedin])
 
   function handlelogin(){
-    setLogedin(true)
+    setLogedin(!logedin)
   }
 
   return (
-    <div className="App bg-slate-900 h-screen">
-      {logedin ? <Todos /> : <LoginRegister redirect={handlelogin}/>}
+    <div className="App bg-slate-900 h-[100%]">
+      {logedin ? <Todos redirect={handlelogin}/> : <LoginRegister redirect={handlelogin}/>}
     </div>
   );
 }

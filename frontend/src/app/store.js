@@ -1,25 +1,17 @@
 import {create} from "zustand";
-import {devtools,persist} from 'zustand/middleware'
 import axios from "axios"
 
-let todos = ((set) => ({
+let todos = ((set,get) => ({
     todos: [],
     setTodo: async () => {
         let resp = await axios.get("/gettodoscontroller");
         set(() => ({
             todos: [...resp.data.todos]
         }));
-    }
+    },
+   getTodo: () => get().todos
 }))
 
-let useTodos = create(
-    devtools(
-        persist(
-            todos, {
-                name: "todo"
-            }
-        )
-    )
-)
+let useTodos = create(todos)
 
 export default useTodos;
