@@ -8,8 +8,12 @@ var cookieParser = require('cookie-parser')
 const cors = require('cors');
 
 // middlewares
-app.use(cors({ credentials: true,
-    origin: 'http://localhost:3000'}));
+
+app.use(cors({
+    origin: process.env.FRONTEND,
+    credentials:true
+}));
+
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

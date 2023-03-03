@@ -11,7 +11,6 @@ const auth = (req, res, next) => {
            message: "unauthorized user"
         })
     }
-
     // verify the token present in cookie and store it in request object(req.user)
     try {
         const decoded = jwt.verify(token, SECRTKEY)

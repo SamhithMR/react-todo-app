@@ -7,14 +7,15 @@ exports.validateCookie = async(req, res) => {
     if(!req.cookies){
         return res.status(401).json({
             sucess: false,
-            message: 'unauthorized user'
+            message: 'cookies not found'
         })
     }
+    
     const {token} = req.cookies
     if (!token) {
         return res.status(401).json({
            sucess: false,
-           message: "unauthorized user"
+           message: "token not found"
         })
     }
 
@@ -22,7 +23,6 @@ exports.validateCookie = async(req, res) => {
     try {
         const decoded = jwt.verify(token, SECRTKEY)
         if(decoded.id){
-            console.log(req.body);
             const resp = await usermodel.findOne({_id: decoded.id})
             if(!resp){return res.status(404).json({message:"user not found"})}
             return res.status(200).json({
@@ -34,7 +34,7 @@ exports.validateCookie = async(req, res) => {
         else{
             return res.status(401).json({
                 sucess: false,
-                message: 'unauthorized user'
+                message: 'invalid user user'
             })
         }
     }catch (err) {

@@ -3,7 +3,6 @@ import {useEffect, useState, useRef} from "react"
 import '../index.css'
 import useTodos from "../app/store"
 import Tasks from './Tasks'
-import BASE_URL from "./apiConfig";
 
 function Todo({data, id, onTodoDeleted, onTodoEdited}){
     const [task, setTask] = useState("")
@@ -14,7 +13,7 @@ function Todo({data, id, onTodoDeleted, onTodoEdited}){
     
     async function addTask(){
         if(task !== ""){
-            await axios.patch(`${BASE_URL}/api/createTask/${id}`,{task})
+            await axios.patch(`${process.env.REACT_APP_BASE_URL}/api/createTask/${id}`,{task},{withCredentials:true})
         }
         setTask("")
         setTodo()

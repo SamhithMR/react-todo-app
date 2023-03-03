@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useState } from "react"
-import BASE_URL from "./apiConfig";
 
 function Login({redirects,display,style}){
     const [email, setEmail] = useState("")
@@ -12,7 +11,7 @@ function Login({redirects,display,style}){
     async function handleLogin(email,password){
         try{
             if (emailRegex.test(email)){
-                const resp = await axios.post(`${BASE_URL}/u/login`,{email:email, password:password},{ withCredentials: true })
+                const resp = await axios.post(`${process.env.REACT_APP_BASE_URL}/u/login`,{email:email, password:password},{withCredentials:true})
                 setErr(resp.data.message)
                 redirects()
             }

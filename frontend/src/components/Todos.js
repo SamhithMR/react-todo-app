@@ -3,7 +3,6 @@ import Todo from './Todo'
 import useTodos from "../app/store"
 import axios from "axios"
 import Form from "./Form"
-import BASE_URL from "./apiConfig";
 
 function Todos({redirect,email}) {
   const [todoss, setTodos] = useState([]);
@@ -29,19 +28,18 @@ const [filter, setFilter] = useState("createdAt")
   });
 
   async function handleTodoDeleted(todoId) {
-    await axios.delete(`${BASE_URL}/api/todos/${todoId}`);
+    await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/todos/${todoId}`,{withCredentials:true});
     setTodo();
   }
   
   async function handleonTodoEdited(todoId, title) {
   
-    await axios.patch(`${BASE_URL}/api/todos/${todoId}`, { title });
+    await axios.patch(`${process.env.REACT_APP_BASE_URL}/api/todos/${todoId}`, { title },{withCredentials:true});
     setTodo();
   }
   
   function handlelogout(){
-    axios.post(`${BASE_URL}/u/logout`);
-    redirect()
+    axios.post(`${process.env.REACT_APP_BASE_URL}/u/logout`,{} ,{withCredentials:true}).then(redirect())
   }
   
     return (

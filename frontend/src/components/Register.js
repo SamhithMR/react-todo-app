@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useState } from "react"
-import BASE_URL from "./apiConfig";
 
 function Register({display,style}){
     const [email, setEmail] = useState("")
@@ -14,7 +13,7 @@ function Register({display,style}){
         try{
             if (emailRegex.test(email)){
                 if(Cpassword === password){
-                    const resp = await axios.post(`${BASE_URL}/u/register`,{email:email, password:password})
+                    const resp = await axios.post(`${process.env.REACT_APP_BASE_URL}/u/register`,{email:email, password:password})
                     setErr(resp.data.message);
                     display()
                 }

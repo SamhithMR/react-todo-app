@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import LoginRegister from './components/LoginRegister';
 import useTodos from "./app/store"
-import BASE_URL from "./components/apiConfig";
 
 function App() {
 
@@ -15,12 +14,13 @@ function App() {
 
   const getSession = async () => {
     try{
-      const resps = await axios.get(`${BASE_URL}/u/getUser`)
+      const resps = await axios.get(`${process.env.REACT_APP_BASE_URL}/u/getUser`,{withCredentials:true})
       setResp(resps.data);
     }catch(err){
       setResp(prev => ({ ...prev, sucess: false }));
       }
     }
+
 
   useEffect(()=>{
     getSession();

@@ -1,7 +1,6 @@
 import axios from "axios"
 import {useState} from 'react'
 import useTodos from "../app/store"
-import BASE_URL from "./apiConfig";
 
 function Form(){
     const [title, setTitle] = useState("")
@@ -9,7 +8,7 @@ function Form(){
     
     async function createTodo(){
       if(title !== ""){
-        await axios.post(`${BASE_URL}/api/todos`, {title});
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/api/todos`, {title},{withCredentials:true});
         setTodo() 
       }
         setTitle("")

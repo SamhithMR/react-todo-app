@@ -1,18 +1,7 @@
 exports.logout = async (req, res) => {
 
-  const userId = req.user?.id
-
-// validations
-  if (!userId) {
-    return res.status(401).json({
-      sucess: false,
-      message: "unauthorized user"
-    })
-  }
-
-  // clear the token value present in the request (req.user)
+  // clear the token value 
   try {
-    res.user = {id: ''}
     res.clearCookie("token") // clear the token cookie
     res.status(200).json({
       sucess: true,

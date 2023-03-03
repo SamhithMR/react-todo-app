@@ -1,6 +1,5 @@
 import {create} from "zustand";
 import axios from "axios"
-import BASE_URL from "../components/apiConfig";
 
 let todos = ((set,get) => ({
     todos: [],
@@ -11,7 +10,7 @@ let todos = ((set,get) => ({
         }))
     },
     setTodo: async () => {
-        let resp = await axios.get(`${BASE_URL}/api/todos?search=${get().query}`);
+        let resp = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/todos?search=${get().query}`,{withCredentials:true});
         set(() => ({
             todos: [...resp.data.todos]
         }));
