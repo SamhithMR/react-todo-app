@@ -3,6 +3,7 @@ import {useEffect, useState, useRef} from "react"
 import '../index.css'
 import useTodos from "../app/store"
 import Tasks from './Tasks'
+import BASE_URL from "./apiConfig";
 
 function Todo({data, id, onTodoDeleted, onTodoEdited}){
     const [task, setTask] = useState("")
@@ -13,7 +14,7 @@ function Todo({data, id, onTodoDeleted, onTodoEdited}){
     
     async function addTask(){
         if(task !== ""){
-            await axios.patch(`/createTaskTodoController/${id}`,{task})
+            await axios.patch(`${BASE_URL}/api/createTask/${id}`,{task})
         }
         setTask("")
         setTodo()
@@ -29,9 +30,9 @@ function Todo({data, id, onTodoDeleted, onTodoEdited}){
     }
 
     return(
-            <div className="todo bg-gray-600 flex flex-col justify-between rounded-md h-[18rem] overflow-y-scroll overflow-x-hidden hidescrollba">
+            <div className="todo bg-gray-600 flex flex-col justify-between rounded-md h-[20rem] overflow-y-scroll overflow-x-hidden hidescrollba">
                 <form className="group taskInput relative flex items-center w-[100%]" onSubmit={handleTodo}>
-                    <input className="w-[100%] text-center font-medium text-lg bg-transparent font-noto text-gray-300 tracking-wider outline-none" value={title} readOnly={!isEditable} name={title} onChange={(e) =>(setTitle(e.target.value))}/>
+                    <input className="w-[100%] text-center font-bold text-[1.2rem] bg-transparent font-noto text-gray-300 tracking-wider outline-none" value={title} readOnly={!isEditable} name={title} onChange={(e) =>(setTitle(e.target.value))}/>
                     <button className="hidden group-hover:block absolute right-2 top-1/2 transform -translate-y-1/2" onClick={()=>(setIsEditable(!isEditable))}>{isEditable ? <i className="fa fa-check text-green-400"></i> : <i className="fas fa-edit text-gray-800"></i>}</button>
                 </form>
                 <Tasks id={id}/>

@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken')
 const {SECRTKEY} = process.env
+const { usermodel } = require('../model/todos')
 
-exports.validateCookie = (req, res) => {
+exports.validateCookie = async(req, res) => {
     // validations
     if(!req.cookies){
         return res.status(401).json({
@@ -21,8 +22,12 @@ exports.validateCookie = (req, res) => {
     try {
         const decoded = jwt.verify(token, SECRTKEY)
         if(decoded.id){
+            console.log(req.body);
+            const resp = await usermodel.findOne({_id: decoded.id})
+            if(!resp){return res.status(404).json({message:"user not found"})}
             return res.status(200).json({
-                sucess:true, 
+                sucess:true,
+                email:resp.email,
                 message:'authorized'
             })
         }

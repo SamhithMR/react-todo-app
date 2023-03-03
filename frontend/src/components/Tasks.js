@@ -3,7 +3,7 @@ import {useEffect, useState} from "react"
 import '../index.css'
 import useTodos from "../app/store"
 import Task from "./Task"
-
+import BASE_URL from "./apiConfig";
 
 function Tasks({id}){
     const [tasks, setTasks] = useState([])
@@ -15,12 +15,12 @@ function Tasks({id}){
     },[id,todos]);
     
     async function deletTask(task){
-        await axios.patch(`/deleteTaskTodoController/${id}`,{task})
+        await axios.patch(`${BASE_URL}/api/deleteTask/${id}`,{task})
         setTodo()
         setTasks(todos.find((x) => x._id === id)?.task || []);
     }
     async function editTask(i,text){
-        await axios.patch(`/editTaskTodoController/${id}`,{text,index:i})
+        await axios.patch(`${BASE_URL}/api/editTask/${id}`,{text,index:i})
         setTodo()
     }
     return(

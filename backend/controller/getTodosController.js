@@ -11,16 +11,26 @@ exports.gettodoscontroller = async (req, res) => {
             message: "unauthorized user"
         })
     }
-
+    
     // get all the todos of perticulat user using the userID
     try {
-        const todos = await todomodel.find({
+        var todos = await todomodel.find({
             user: userId
         })
-        res.status(201).json({
-            todos,
-            sucess:true
-        })
+
+        if (req.query.search) {
+            const searchStr = req.query.search.toLowerCase();
+            todos = todos.filter(todo => {
+                return todo.title.toLowerCase().includes(searchStr) ||  todo.task.some((title) => title.toLowerCase().includes(searchStr))
+            });
+          }
+
+            res.status(201).json({
+                todos,
+                sucess:true
+            })
+        
+
     }catch (err) {
         res.status(400).json({
             sucess: false,

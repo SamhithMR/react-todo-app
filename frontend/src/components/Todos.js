@@ -3,60 +3,47 @@ import Todo from './Todo'
 import useTodos from "../app/store"
 import axios from "axios"
 import Form from "./Form"
+import BASE_URL from "./apiConfig";
 
-function Todos({redirect}) {
+function Todos({redirect,email}) {
   const [todoss, setTodos] = useState([]);
   const [search, setSearch] = useState("");
   const setTodo = useTodos((state) => state.setTodo);
   const todos = useTodos((state) => state.getTodo());
+  const setQuery = useTodos((state) => state.setQuery);
 
- const updateTodo = useTodos((state)=> state.getTodo())
-
-  const [email, setEmail] = useState('');
+  useEffect(()=>{
+    setQuery(search)
+    setTodo()
+  },[search])
   
+const [filter, setFilter] = useState("createdAt")
+
   useEffect(() => {
-    setTodos(todos);
-  },[todoss, todos]);
+    if(filter == "updatedAt"){
+      setTodos(todos.sort((x,y)=>((new Date(y.updatedAt)) - (new Date(x.updatedAt)))))
+    }
+    else if(filter == "createdAt"){
+     setTodos(todos.sort((x,y)=>((new Date(x.createdAt)) - (new Date(y.createdAt)))))
+    }
+  });
 
-  
   async function handleTodoDeleted(todoId) {
-    await axios.delete(`/deleteTodoController/${todoId}`);
+    await axios.delete(`${BASE_URL}/api/todos/${todoId}`);
     setTodo();
-    setTodos(todos);
   }
   
   async function handleonTodoEdited(todoId, title) {
-    await axios.patch(`/editTodoController/${todoId}`, { title });
+  
+    await axios.patch(`${BASE_URL}/api/todos/${todoId}`, { title });
     setTodo();
-    setTodos(todoss);
   }
   
   function handlelogout(){
-    axios.post('/logout');
+    axios.post(`${BASE_URL}/u/logout`);
     redirect()
   }
   
-  useEffect(() => {
-    axios.get('/getUserEmail')
-      .then(response => {
-        setEmail(response.data.email);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    const searchValue = search.toLowerCase();
-    const filteredTodos = todos.filter((todo) => {
-      return (
-        todo.title.toLowerCase().includes(searchValue) ||
-        todo.task.some((title) => title.toLowerCase().includes(searchValue))
-        );
-      });
-      setTodos(searchValue ? filteredTodos : todos);
-    }, [search, todos]);
-    
     return (
       <div className='w-[95%] mx-auto py-4 flex flex-col h-[100%] min-h-[150vh] '>
       <div className="flex justify-between items-center">
@@ -68,8 +55,12 @@ function Todos({redirect}) {
       </div>
       <div className="flex md:justify-between items-center flex-wrap justify-center">
         <Form />
-        <div className='relative'>
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="search..." className="py-2 px-8 rounded-md"/>
+        <div className='relative flex gap-2'>
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="search..." className="py-2 px-8 rounded-md outline-none"/>
+          <select name='type' className='rounded-md text-sm px-2' onChange={(e) => {setFilter(e.target.value)}}>
+            <option value={"updatedAt"}>updatedAt</option>
+            <option value={"createdAt"}>createdAt</option>
+          </select>
         </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 py-4 gap-6 items-center justify-center">

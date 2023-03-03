@@ -28,6 +28,8 @@
 	width: 0;
   }
  
-  .tasks form:nth-child(even){
+  .tasks form:nth-child(odd){
 	background-color: rgba(38, 33, 43, 0.31);
   }
+
+ 

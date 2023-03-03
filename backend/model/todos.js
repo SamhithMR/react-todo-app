@@ -25,7 +25,7 @@ const TodoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-});
+}, { timestamps: true });
 
 const usermodel = mongoose.model("user", UserSchema)
 const todomodel = mongoose.model("todo", TodoSchema)

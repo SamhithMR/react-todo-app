@@ -4,41 +4,39 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import LoginRegister from './components/LoginRegister';
 import useTodos from "./app/store"
+import BASE_URL from "./components/apiConfig";
 
 function App() {
 
-  const [logedin, setLogedin] = useState(false)
+  const [resp, setResp] = useState({})
+
   const todos = useTodos((state) => state.todos);
   const setTodo = useTodos((state) => state.setTodo);
 
-  useEffect(() => {
-    const getSession = async () => {
-      try{
-        const resp = await axios.get('/validateCookie')
-        setLogedin(resp.data.sucess);
-        
-      }catch(err){
-        setLogedin(false)
+  const getSession = async () => {
+    try{
+      const resps = await axios.get(`${BASE_URL}/u/getUser`)
+      setResp(resps.data);
+    }catch(err){
+      setResp(prev => ({ ...prev, sucess: false }));
       }
     }
-    getSession();
-  }, []);
 
   useEffect(()=>{
-    if(logedin){
+    getSession();
+    if(resp.sucess){
       setTodo(todos)
     }
-  },[logedin])
+  },[resp.sucess])
 
-  function handlelogin(){
-    setLogedin(!logedin)
-  }
-
+  const handlelogin = () => {
+    setResp(prev => ({ ...prev, sucess: !resp.sucess }));
+  };
+  
   return (
     <div className="App bg-slate-900 h-[100%]">
-      {logedin ? <Todos redirect={handlelogin}/> : <LoginRegister redirect={handlelogin}/>}
+      {resp.sucess ? <Todos redirect={handlelogin} email={resp.email}/> : <LoginRegister redirect={handlelogin}/>}
     </div>
   );
 }
-
 export default App
