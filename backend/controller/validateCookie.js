@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken')
 const {SECRTKEY} = process.env
-const { usermodel } = require('../model/todos')
+import jwt from 'jsonwebtoken'
+import { usermodel } from '../model/todos.js'
 
-exports.validateCookie = async(req, res) => {
+const validateCookie = async(req, res) => {
     // validations
     if(!req.cookies){
         return res.status(401).json({
@@ -44,3 +44,5 @@ exports.validateCookie = async(req, res) => {
         })
     }
 }
+
+export default validateCookie

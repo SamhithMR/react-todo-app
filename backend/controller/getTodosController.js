@@ -1,6 +1,6 @@
-const {todomodel} = require('../model/todos')
+import { todomodel } from '../model/todos.js'
 
-exports.gettodoscontroller = async (req, res) => {
+const gettodoscontroller = async (req, res) => {
 
     const userId = req.user?.id
 
@@ -38,3 +38,5 @@ exports.gettodoscontroller = async (req, res) => {
         })
     }
 }
+
+export default gettodoscontroller

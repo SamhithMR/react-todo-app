@@ -1,7 +1,7 @@
-const {usermodel} = require('../model/todos')
-const bcrypt = require('bcryptjs')
+import { usermodel } from '../model/todos.js'
+import bcrypt from 'bcryptjs'
 
-exports.register = async(req,res) =>{
+const register = async(req,res) =>{
     const {email,password} = req.body
     // validations
     if (!email) {
@@ -34,3 +34,5 @@ exports.register = async(req,res) =>{
         })
     }
 }
+
+export default register

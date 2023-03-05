@@ -1,11 +1,12 @@
-const {usermodel} = require('../model/todos')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
+import { usermodel } from '../model/todos.js'
+import config from '../config/index.js'
 
-exports.login = async(req,res) =>{
+const login = async(req,res) =>{
     try{
         const {email,password} = req.body
-        const {SECRTKEY} = process.env
+        const SECRTKEY = config.SECRTKEY
         const user = await usermodel.findOne({email})
 
 // validations
@@ -52,3 +53,5 @@ exports.login = async(req,res) =>{
         })
     }
 }
+
+export default login

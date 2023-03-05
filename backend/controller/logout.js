@@ -1,4 +1,4 @@
-exports.logout = async (req, res) => {
+const logout = async (req, res) => {
 
   // clear the token value 
   try {
@@ -18,3 +18,5 @@ exports.logout = async (req, res) => {
     })
   }
 }
+
+export default logout

@@ -1,7 +1,6 @@
-const { todomodel } = require('../model/todos')
+import { todomodel } from '../model/todos.js'
 
-exports.createTaskTodoController = async (req, res) => {
-
+const createTaskTodoController = async (req, res) => {
     const { task } = req.body
     const userId = req.user?.id
     const id = req.params.id
@@ -45,3 +44,4 @@ exports.createTaskTodoController = async (req, res) => {
         })
     }
 }
+export default createTaskTodoController

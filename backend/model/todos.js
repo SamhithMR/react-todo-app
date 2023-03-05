@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 const { Schema } = mongoose
 
 // user schema to store users detail
@@ -30,7 +30,4 @@ const TodoSchema = new Schema({
 const usermodel = mongoose.model("user", UserSchema)
 const todomodel = mongoose.model("todo", TodoSchema)
 
-module.exports = {
-    usermodel,
-    todomodel
-}
+export {usermodel,todomodel}

@@ -56,8 +56,8 @@ const [filter, setFilter] = useState("createdAt")
         <div className='relative flex gap-2'>
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="search..." className="py-2 px-8 rounded-md outline-none"/>
           <select name='type' className='rounded-md text-sm px-2' onChange={(e) => {setFilter(e.target.value)}}>
-            <option value={"updatedAt"}>updatedAt</option>
             <option value={"createdAt"}>createdAt</option>
+            <option value={"updatedAt"}>updatedAt</option>
           </select>
         </div>
       </div>

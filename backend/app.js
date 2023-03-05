@@ -1,22 +1,18 @@
-require('dotenv').config()
-require('./config/database').connect()
+import config from './config/index.js'
+import {connect} from './config/database.js'
+import express from 'express'
+import cookieParser from 'cookie-parser'
+import cors from 'cors'
+import router from './router/routs.js'
 
-const express = require('express')
+connect();
+
 const app = express()
-const router = require('./router/routs')
-var cookieParser = require('cookie-parser')
-const cors = require('cors');
-
 // middlewares
-
-app.use(cors({
-    origin: process.env.FRONTEND,
-    credentials:true
-}));
-
+app.use(cors({origin: config.FRONTEND,credentials:true}));
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/",router)
 
-module.exports = app
+export default app

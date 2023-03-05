@@ -1,22 +1,23 @@
-const express = require('express')
+import express from 'express';
 
-const {home} = require('../controller/home')
-const {createTodoController} = require('../controller/createTodoController')
-const {deleteTodoController} = require('../controller/deleteTodoController')
-const {gettodoscontroller} = require('../controller/gettodoscontroller')
-const {gettodocontroller} = require('../controller/gettodocontroller')
-const {createTaskTodoController} = require('../controller/createTaskTodoController')
-const {deleteTaskTodoController} = require('../controller/deleteTaskTodoController')
-const {editTodoController} = require('../controller/editTodoController')
-const {editTaskTodoController} = require('../controller/editTaskTodoController')
-const {register} = require('../controller/register')
-const {login} = require('../controller/login')
-const {logout} = require('../controller/logout')
-const {validateCookie} = require('../controller/validateCookie')
+import  home  from '../controller/home.js';
+import createTodoController from '../controller/createTodoController.js';
+import  deleteTodoController  from '../controller/deleteTodoController.js';
+import  gettodoscontroller  from '../controller/gettodoscontroller.js';
+import  gettodocontroller  from '../controller/gettodocontroller.js';
+import  createTaskTodoController  from '../controller/createTaskTodoController.js';
+import  deleteTaskTodoController  from '../controller/deleteTaskTodoController.js';
+import  editTodoController  from '../controller/editTodoController.js';
+import  editTaskTodoController  from '../controller/editTaskTodoController.js';
+import  register  from '../controller/register.js';
+import  login  from '../controller/login.js';
+import  logout  from '../controller/logout.js';
+import  validateCookie  from '../controller/validateCookie.js';
 
-const router = express.Router()
+import auth from '../middleware/auth.js';
 
-const auth = require('../middleware/auth')
+const router = express.Router();
+
 
 router.get("/",home)
 
@@ -36,4 +37,4 @@ router.post('/u/login',login)
 router.post('/u/logout',auth,logout)
 router.get('/u/getUser',validateCookie)
 
-module.exports = router
+export default router

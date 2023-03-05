@@ -1,6 +1,6 @@
-const { todomodel } = require('../model/todos')
+import { todomodel } from '../model/todos.js';
 
-exports.editTaskTodoController = async (req, res) => {
+const editTaskTodoController = async (req, res) => {
 
     let { index, text } = req.body;
     const userId = req.user?.id
@@ -62,3 +62,5 @@ exports.editTaskTodoController = async (req, res) => {
         })
     }
 }
+
+export default editTaskTodoController

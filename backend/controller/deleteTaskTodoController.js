@@ -1,6 +1,6 @@
-const { todomodel } = require('../model/todos')
+import { todomodel } from '../model/todos.js'
 
-exports.deleteTaskTodoController = async (req, res) => {
+const deleteTaskTodoController = async (req, res) => {
     const { task } = req.body
     const userId = req.user?.id
     const id = req.params.id
@@ -44,3 +44,5 @@ exports.deleteTaskTodoController = async (req, res) => {
         })
     }
 }
+
+export default deleteTaskTodoController

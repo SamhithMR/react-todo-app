@@ -1,5 +1,7 @@
-const jwt = require('jsonwebtoken')
-const {SECRTKEY} = process.env
+import jwt from 'jsonwebtoken'
+import config from '../config/index.js'
+
+const SECRTKEY = config.SECRTKEY
 
 const auth = (req, res, next) => {
     const {token} = req.cookies
@@ -24,4 +26,4 @@ const auth = (req, res, next) => {
     return next()
 }
 
-module.exports = auth
+export default auth
