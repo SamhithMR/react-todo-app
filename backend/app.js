@@ -10,7 +10,10 @@ connect();
 const app = express()
 // middlewares
 app.use(cors({origin: config.FRONTEND,credentials:true}));
-app.use(cookieParser())
+app.use(cookieParser(undefined, {
+  sameSite: 'none',
+  secure: true,
+}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use("/",router)
