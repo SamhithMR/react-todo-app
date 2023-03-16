@@ -13,6 +13,7 @@ function Login({redirects,display,style}){
             if (emailRegex.test(email)){
                 const resp = await axios.post(`${process.env.REACT_APP_BASE_URL}/u/login`,{email:email, password:password},{withCredentials:true})
                 setErr(resp.data.message)
+                axios.defaults.headers.common['authorization'] = resp.data.token;
                 redirects()
             }
             else{

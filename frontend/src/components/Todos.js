@@ -39,7 +39,8 @@ const [filter, setFilter] = useState("createdAt")
   }
   
   function handlelogout(){
-    axios.post(`${process.env.REACT_APP_BASE_URL}/u/logout`,{} ,{withCredentials:true}).then(redirect())
+    axios.post(`${process.env.REACT_APP_BASE_URL}/u/logout`,{} ,{withCredentials:true}).then(redirect());
+    axios.defaults.headers.common['authorization'] = "";
   }
   
     return (

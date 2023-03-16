@@ -420,13 +420,21 @@ router.post('/u/login',async(req,res) =>{
                 expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
                 httpOnly: true
             }
+
+
+            // res.set('Authorization', `Bearer ${token}`);
             
             // store the userID as token in cookie
-            res.status(201).cookie("token",token, options).json({
-                sucess:true,
-                token,
-                message:"loggedin sucessfully"
-            })
+            // res.set("Authorization", `Bearer ${token}`);
+            // res.setHeader('Set-Cookie', `token=${token}; Expires=${options.expires.toUTCString()}; HttpOnly`);
+
+            // res.setHeader('authorization', `Bearer ${token}`);
+
+            res.cookie("token",token, options).json({
+                 success: true, 
+                 message: 'Cookie and header set successfully.',
+                 token });
+
         }
         else{
             res.status(401).json({
@@ -463,19 +471,37 @@ router.post('/u/logout',auth,async (req, res) => {
     }
   })
 router.get('/u/getUser',async(req, res) => {
-    // validations
-    if(!req.cookies){
-        return res.status(401).json({
-            sucess: false,
-            message: 'cookies not found'
-        })
+
+
+    // // validations
+    // if(!req.cookies){
+    //     return res.status(401).json({
+    //         sucess: false,
+    //         message: 'cookies not found'
+    //     })
+    // }
+    // const token = req.cookies.token;
+    // if (!token) {
+    //     return res.status(401).json({
+    //        sucess: false,
+    //        message: "token not found"
+    //     })
+    // }
+
+    let token;
+
+    if (
+        req.cookies.token 
+        || (req.headers?.authorization)
+        ) {
+        token = req.cookies.token 
+        || req.headers.authorization
     }
     
-    const {token} = req.cookies
     if (!token) {
         return res.status(401).json({
-           sucess: false,
-           message: "token not found"
+            sucess: false,
+            message: 'invalid token'
         })
     }
 
