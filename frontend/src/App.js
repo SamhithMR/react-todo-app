@@ -4,9 +4,10 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import LoginRegister from './components/LoginRegister';
 import useTodos from "./app/store"
+import { ThreeDots } from 'react-loader-spinner'
 
 function App() {
-
+  const isLoading = useTodos((state) => state.isLoading);
   const [resp, setResp] = useState({})
 
   const todos = useTodos((state) => state.todos);
@@ -20,7 +21,6 @@ function App() {
       setResp(prev => ({ ...prev, sucess: false }));
       }
     }
-
 
   useEffect(()=>{
     getSession();
@@ -36,6 +36,7 @@ function App() {
   return (
     <div className="App bg-slate-900 h-[100%]">
       {resp.sucess ? <Todos redirect={handlelogin} email={resp.email}/> : <LoginRegister redirect={handlelogin}/>}
+      {isLoading && (<div className="loading"><ThreeDots  height="80" width="80"  radius="9"  color="#404f63"  ariaLabel="three-dots-loading" visible={true} /></div>)}
     </div>
   );
 }

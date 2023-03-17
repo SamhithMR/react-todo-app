@@ -4,20 +4,7 @@ import config from '../config/index.js'
 const SECRTKEY = config.SECRTKEY
 
 const auth = (req, res, next) => {
-
-
-    // const token = req.cookies.token 
-
-    // // validations
-    // if (!token) {
-    //     return res.status(401).json({
-    //        sucess: false,
-    //        message: "unauthorized user"
-    //     })
-    // }
-
     let token;
-
     if (
         req.cookies.token 
         || (req.headers?.authorization)

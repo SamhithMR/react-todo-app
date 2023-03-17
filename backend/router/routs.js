@@ -6,9 +6,7 @@ import { usermodel } from '../model/todos.js'
 import config from '../config/index.js'
 const {SECRTKEY} = config
 import auth from '../middleware/auth.js';
-
 const router = express.Router();
-
 
 router.get("/", (req, res) => {
     res.send({"status":"hello this is get request router"})
@@ -206,7 +204,8 @@ router.patch("/api/todos/:id",auth,async (req, res) => {
           message: err.message
       })
   }
-  })
+})
+
 // task routers
 router.patch("/api/createTask/:id",auth,async (req, res) => {
     const { task } = req.body
@@ -358,6 +357,7 @@ router.patch("/api/editTask/:id",auth,async (req, res) => {
         })
     }
 })
+
 // users routers
 router.post('/u/register',async(req,res) =>{
     const {email,password} = req.body
@@ -421,15 +421,6 @@ router.post('/u/login',async(req,res) =>{
                 httpOnly: true
             }
 
-
-            // res.set('Authorization', `Bearer ${token}`);
-            
-            // store the userID as token in cookie
-            // res.set("Authorization", `Bearer ${token}`);
-            // res.setHeader('Set-Cookie', `token=${token}; Expires=${options.expires.toUTCString()}; HttpOnly`);
-
-            // res.setHeader('authorization', `Bearer ${token}`);
-
             res.cookie("token",token, options).json({
                  success: true, 
                  message: 'Cookie and header set successfully.',
@@ -469,27 +460,9 @@ router.post('/u/logout',auth,async (req, res) => {
         message: err.message
       })
     }
-  })
+})
 router.get('/u/getUser',async(req, res) => {
-
-
-    // // validations
-    // if(!req.cookies){
-    //     return res.status(401).json({
-    //         sucess: false,
-    //         message: 'cookies not found'
-    //     })
-    // }
-    // const token = req.cookies.token;
-    // if (!token) {
-    //     return res.status(401).json({
-    //        sucess: false,
-    //        message: "token not found"
-    //     })
-    // }
-
     let token;
-
     if (
         req.cookies.token 
         || (req.headers?.authorization)

@@ -1,6 +1,6 @@
 import axios from "axios"
 import {useEffect, useState} from "react"
-import '../index.css'
+import '../App.css'
 import useTodos from "../app/store"
 import Task from "./Task"
 
@@ -14,7 +14,9 @@ function Tasks({id}){
     },[id,todos]);
     
     async function deletTask(task){
+        useTodos.setState({ isLoading: true });
         await axios.patch(`${process.env.REACT_APP_BASE_URL}/api/deleteTask/${id}`,{task},{withCredentials:true})
+        useTodos.setState({ isLoading: false });
         setTodo()
         setTasks(todos.find((x) => x._id === id)?.task || []);
     }

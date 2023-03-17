@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
+import useTodos from "../app/store"
 
 function Register({display,style}){
     const [email, setEmail] = useState("")
@@ -13,7 +14,9 @@ function Register({display,style}){
         try{
             if (emailRegex.test(email)){
                 if(Cpassword === password){
+                    useTodos.setState({ isLoading: true });
                     const resp = await axios.post(`${process.env.REACT_APP_BASE_URL}/u/register`,{email:email, password:password})
+                    useTodos.setState({ isLoading: false });
                     setErr(resp.data.message);
                     display()
                 }

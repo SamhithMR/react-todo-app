@@ -7,6 +7,14 @@
 	animation: animate 35s ease-in-out infinite;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.circle-plus-icon:hover {
+    color: #91ddc2;
+  }
+
 @keyframes animate {
 	0% {
 		background-position: 0% 50%;
@@ -19,7 +27,6 @@
 	}
 }
 
-
 /* Hide the scrollbar */
 ::-webkit-scrollbar {
 	width: 0;
@@ -29,4 +36,13 @@
 	background-color: rgba(38, 33, 43, 0.31);
   }
 
- 
+  .loading{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	transition: 1s ease-in-out;
+   }

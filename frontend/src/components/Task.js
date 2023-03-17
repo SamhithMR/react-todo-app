@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-import '../index.css'
+import '../App.css'
 
 function Task({data,i,handleedit, handledelet}){
     const [text, setText] = useState("")
