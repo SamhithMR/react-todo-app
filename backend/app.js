@@ -9,7 +9,9 @@ connect();
 
 const app = express()
 // middlewares
-app.use(cors({origin: config.FRONTEND || `http://localhost:${config.PORT}`,credentials:true}));
+
+const allowedOrigins = ['http://localhost:3000', config.FRONTEND];
+app.use(cors({origin:allowedOrigins, credentials:true}));
 app.use(cookieParser(undefined, {
   sameSite: 'none',
   secure: true,

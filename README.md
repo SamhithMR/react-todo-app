@@ -1,38 +1,35 @@
-# React Todo Application
+# DoiT
 
-This is a simple todo application built using ReactJS, NodeJS, ExpressJS, MongoDB, and Tailwind CSS.
+DoiT is a full-stack application built using NodeJS, ReactJS, ExpressJS,  and MongoDB. It allows users to create, read, update, and delete tasks and todos.
+
+## Deployed Link
+The application is currently deployed on Netlify. You can access it through this link: https://samhith40.netlify.app
+
 
 ## Features
 
-- Add a new todo
-- Add a new task to a todo
-- Edit a todo
-- Delete a todo
-- Delete a task from a todo
+DoiT has the following features:
+- Create, read, update, and delete to-dos
+- Create, read, update, and delete tasks within each to-do
+- State management with Zustand
+- API built with Node.js and Express.js
+- Database management with MongoDB and Mongoose
 
-## Technologies Used
+## Testing with Postman
+We recommend testing the API endpoints with Postman. You can find the Postman collection with name `todo.postman_collections.json . Simply import the collection into Postman and start testing the endpoints.
 
-- ReactJS
-- NodeJS
-- ExpressJS
-- MongoDB
-- Mongoose
-- Tailwind CSS
+## Screenshots
+![DoiT Todo Application](./preview1.png)
+![DoiT Todo Application](./preview2.png)
 
-## Getting Started
+## Installaion
 
-### Prerequisites
-
-- Node.js
-- MongoDB
-
-### Installation
-
-1. Clone the repository: `git clone https://github.com/your-username/your-repo.git`
+1. Clone the repository: `https://github.com/SamhithMR/react-todo-app`
 2. Navigate to the project directory: `cd your-repo`
 3. Install dependencies: `npm install`
 4. Start the development server: `npm run dev`
-5. Open the application in your browser at `http://localhost:3000`
+5. start the client application: `npm start`
+6. Open the application in your browser at `http://localhost:3000`
 
 ## Usage
 
@@ -40,12 +37,5 @@ This is a simple todo application built using ReactJS, NodeJS, ExpressJS, MongoD
 2. Add a new task to a todo by clicking the "Add Task" button next to the todo and entering a task description in the input field that appears.
 3. Edit a todo by clicking the "Edit" button next to the todo and entering a new name for the todo in the input field that appears.
 4. Delete a todo by clicking the "Delete" button next to the todo.
-5. Delete a task from a todo by clicking the "Delete" button next to the task.
+5. Delete a task from a todo by clicking the "-" button next to the task.
 
-## Contributing
-
-Contributions are welcome! If you find a bug or have an idea for a new feature, please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.

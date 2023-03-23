@@ -26,7 +26,7 @@ function Login({redirects,display,style}){
             }
         }
         catch(err){
-            setErr(err.response.data.message);
+            setErr(err?.response?.data?.message);
         }
     }
     
